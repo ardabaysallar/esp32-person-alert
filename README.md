@@ -24,6 +24,16 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
 - Speed: about 3 frames per second (plain TFLite Micro, no esp-nn acceleration)
 - The onboard LED (GPIO2) lights up while a person is in view
 
+## What you need
+
+- The board: Freenove ESP32-S3 WROOM kit with camera, plus a USB-C **data** cable. See [docs/HARDWARE.md](docs/HARDWARE.md) for how to seat the camera ribbon.
+- A computer. Tested on macOS 15 only. The script targets macOS; Linux may work, Windows is untested (use the Arduino IDE route below).
+- A 2.4 GHz Wi-Fi network (the ESP32 cannot join 5 GHz).
+- Two Gmail addresses: a **throwaway sender** account for the camera, and the address that should receive alerts. The sender needs 2-Step Verification turned on so you can create an app password (about 5 minutes, see "Secrets and security").
+- Some patience on the first run: `setup.sh` downloads the ESP32 toolchain, which is a large download.
+
+Tested with: Freenove ESP32-S3 N16R8 (16 MB flash), macOS 15.6, arduino-cli 1.5.1, esp32 core 2.0.5.
+
 ## Quick start (macOS)
 
 1. **Driver.** Install the WCH CH34x driver from <https://www.wch-ic.com/downloads/CH34XSER_MAC_ZIP.html>. On macOS 15 also enable it in *System Settings > General > Login Items & Extensions*. Plug in the USB-C port next to the CH343 chip, with a data cable.
@@ -37,10 +47,15 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
    ./setup.sh
    ```
 4. **Fill in your secrets** in `PersonAlert/secrets.h` (see below), save, then run `./setup.sh` again. It compiles and uploads.
-5. **Wi-Fi.** On first boot the board opens a hotspot called **ESP32-CAM-Setup**. Join it from your phone and enter your 2.4 GHz Wi-Fi name and password on the page that appears (or open `192.168.4.1`). They are stored in the board's flash, not in the code.
-6. Stand in front of the camera. After about one second of detection you get an email "Person detected".
+5. **Wi-Fi.** If the board has no saved Wi-Fi, it opens a hotspot called **ESP32-CAM-Setup**. Join it from your phone and enter your 2.4 GHz Wi-Fi name and password on the page that appears (or open `192.168.4.1`). They are stored in the board's flash, not in the code. *Note: the author's board already had Wi-Fi saved, so this hotspot step was not exercised in testing. It is the standard WiFiManager flow; open an issue if it behaves differently.*
+6. **Check that it works.** Open the Arduino IDE's Serial Monitor (Tools > Serial Monitor, 115200 baud, with the board's port selected), or in a terminal run `screen /dev/cu.wchusbserial* 115200` (leave with Ctrl-A, then K, then Y). `setup.sh` also prints an `arduino-cli monitor` command at the end. You should see `Model ready. Arena used: ... bytes` and then a line per frame like `person=0.18  no_person=0.82  -  (313 ms)`. The "person" value is the model's confidence from 0 to 1.
+7. **Test the alert.** Stand in front of the camera, 1 to 2 metres away. The onboard LED lights, the score goes above 0.7 (`PERSON` in the log), and after about one second you get an email "Person detected". Look in your spam folder the first time. There is a 5 minute pause between emails.
 
 `./setup.sh compile` only compiles, with no board and no secrets needed.
+
+### 8 MB flash variant (black PCB)
+
+`setup.sh` is set up for the 16 MB variant. For 8 MB, edit the `FQBN=` line in `setup.sh`: replace `FlashSize=16M` with `FlashSize=8M` and `PartitionScheme=app3M_fat9M_16MB` with `PartitionScheme=default_8MB`. This variant was not tested.
 
 ### Arduino IDE instead of the script
 
@@ -61,6 +76,8 @@ The tools only appear in the macOS menu bar after you select a board. If your ki
 ## Secrets and security
 
 Everything private lives in one file, `PersonAlert/secrets.h`, which is listed in `.gitignore` and never committed.
+
+**Create the app password** (once, on the sender account): turn on 2-Step Verification in your Google account, then open <https://myaccount.google.com/apppasswords>, create a password named e.g. "esp32 camera" and copy the 16 characters Google shows. Google shows it only once. If that page is missing, 2-Step Verification is not on yet.
 
 | Value | What to use |
 |---|---|
@@ -92,9 +109,9 @@ Tunables at the top of `PersonAlert.ino`: `kThreshold` (0.70), `kHitsNeeded` (3 
 ## Troubleshooting
 
 - **No serial port.** `ls /dev/cu.wchusbserial*`. If empty: driver, data cable, or the other USB-C port.
-- **Uploads fail.** Hold BOOT, tap RST, release BOOT, then upload again.
+- **Uploads fail.** Check the port and cable first. Then press RST or re-plug the board and try again (Freenove's own advice). If it still fails, hold BOOT while you press RST, release BOOT, then upload.
 - **"PSRAM" or allocation errors.** PSRAM must be set to OPI PSRAM.
-- **Chrome can't open the board's address (macOS).** Enable Chrome under *System Settings > Privacy & Security > Local Network*.
+- **Log shows nothing.** Make sure the baud rate is 115200 and that you use the UART USB-C port. Press RST.
 - **No email.** Check the serial monitor (115200 baud) for `Email failed: ...`. Usual causes are a wrong app password or 2-Step Verification being off. Look in spam too.
 - **False alarms.** Hands, coats and posters can score high. Raise `kThreshold` or `kHitsNeeded`.
 
