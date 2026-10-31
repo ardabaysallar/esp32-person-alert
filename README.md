@@ -92,6 +92,7 @@ Good practice:
 - Wi-Fi credentials are entered through the setup hotspot and are not in the source.
 - Before you push to a fork, run `git status` and check that `secrets.h` is not listed.
 - Run it on your own network. The device has no login and no encryption on its hotspot during setup, so do the setup at home.
+- **Known limitation:** the email connection is encrypted, but the board does not verify that the server is really Gmail. On a network you don't control, someone could capture the sender's app password. Use a throwaway sender account. Details and other limits are in [SECURITY.md](SECURITY.md).
 
 ## How it works
 
