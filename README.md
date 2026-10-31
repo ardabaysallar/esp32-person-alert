@@ -9,7 +9,17 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
                                       email via Gmail SMTP (5 min cooldown)
 ```
 
-- Board: Freenove ESP32-S3 WROOM with camera (8 MB PSRAM, 16 MB flash, OV2640)
+## Documentation
+
+| Document | What's in it |
+|---|---|
+| [docs/HARDWARE.md](docs/HARDWARE.md) | Parts, board layout, pins, camera and USB setup, limits |
+| [docs/ML_MODEL.md](docs/ML_MODEL.md) | The person-detection model, preprocessing, tuning, measured scores, limits |
+| [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md) | Firmware walkthrough, email sending, build settings, resource use, security design |
+
+## At a glance
+
+- Board: Freenove ESP32-S3 WROOM with camera (8 MB PSRAM, 8 or 16 MB flash depending on the variant; the camera is an OV2640 per Freenove's tutorial)
 - Model: Espressif / TensorFlow "person detection" (int8, 96x96 grayscale, about 300 KB)
 - Speed: about 3 frames per second (plain TFLite Micro, no esp-nn acceleration)
 - The onboard LED (GPIO2) lights up while a person is in view
