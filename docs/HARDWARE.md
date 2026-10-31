@@ -2,6 +2,8 @@
 
 No soldering and no external wiring: the whole project is one board with a camera, a USB cable and Wi-Fi.
 
+![Generic layout of the ESP32-S3 WROOM camera board](images/board-diagram.svg)
+
 ```
    +---------------------- Freenove ESP32-S3 WROOM board ----------------------+
    |                                                                           |
@@ -30,7 +32,7 @@ No soldering and no external wiring: the whole project is one board with a camer
 
 - **Module:** ESP32-S3-WROOM-1, dual-core 240 MHz, Wi-Fi and Bluetooth 5 (LE).
 - **Memory:** 8 MB PSRAM (OPI). Flash is 8 MB (black PCB, N8R8) or 16 MB (red PCB, N16R8). The board used for this project reports 16 MB flash and 8 MB PSRAM (read with `esptool flash_id`).
-- **Camera connector:** 24-pin FPC on the board. The camera used in this project has "OV3660" printed on its ribbon (see the photo in the README). Freenove's tutorial sketches mention an OV2640, so your kit may ship with either; check the label on your camera.
+- **Camera connector:** 24-pin FPC on the board. The camera used in this project has "OV3660" printed on its ribbon. Freenove's tutorial sketches mention an OV2640, so your kit may ship with either; check the label on your camera.
 - **Two USB-C ports:**
   - The one next to the **CH343** chip is the programming and serial port. Use this one.
   - The other is the chip's native USB (GPIO19 D+, GPIO20 D-). It is not used here.

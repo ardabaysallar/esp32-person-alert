@@ -9,9 +9,9 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
                                       email via Gmail SMTP (5 min cooldown)
 ```
 
-![The Freenove ESP32-S3 WROOM board with its camera, connected by USB-C](docs/images/board.jpg)
+![Generic layout of the ESP32-S3 WROOM camera board: module, camera, buttons, LEDs and the two USB-C ports](docs/images/board-diagram.svg)
 
-*The red Freenove ESP32-S3 WROOM board (16 MB flash variant) with the camera on its ribbon cable. The ribbon is labelled OV3660. The USB-C cable sits in the right-hand port, the one that appears as the serial port on a Mac.*
+*Layout of the Freenove ESP32-S3 WROOM board with camera (generic illustration, not to scale). Upload and read the log through the USB-C port on the right, the UART (CH343) one.*
 
 ## Documentation
 

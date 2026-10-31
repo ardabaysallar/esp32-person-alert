@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 700" width="760" height="700" role="img" aria-labelledby="t d">
+  <title id="t">ESP32-S3 camera board layout</title>
+  <desc id="d">Generic top view of an ESP32-S3 WROOM board with camera: module, camera on ribbon, FPC connector, buttons, LEDs and two USB-C ports. Labels point to each part.</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .pcb { fill: #c62828; stroke: #7f1d1d; stroke-width: 3; }
+    .hole { fill: #f5d98b; stroke: #8a6d1f; stroke-width: 1; }
+    .module { fill: #d9dde3; stroke: #6b7280; stroke-width: 2; }
+    .ant { fill: #1f2937; }
+    .txt { font: 600 13px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #1f2937; }
+    .small { font: 500 11px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #374151; }
+    .onboard { font: 700 12px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #ffffff; }
+    .lead { stroke: #6b7280; stroke-width: 1.5; fill: none; }
+    .dot { fill: #6b7280; }
+    .usb { fill: #e5e7eb; stroke: #4b5563; stroke-width: 2; }
+    .usbin { fill: #4b5563; }
+    .btn { fill: #374151; stroke: #111827; stroke-width: 2; }
+    .ribbon { fill: #d97706; stroke: #92400e; stroke-width: 1.5; }
+    .lens { fill: #111827; }
+    .glass { fill: #be185d; }
+    .conn { fill: #f3f4f6; stroke: #4b5563; stroke-width: 2; }
+    .title { font: 700 18px -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; fill: #111827; }
+  </style>
+  <rect class="bg" width="760" height="700"/>
+  <text class="title" x="30" y="36">ESP32-S3 WROOM camera board (top view)</text>
+  <text class="small" x="30" y="56">Generic illustration, not to scale. Layout based on the Freenove ESP32-S3 WROOM board.</text>
+
+  <!-- board -->
+  <rect class="pcb" x="200" y="90" width="260" height="560" rx="12"/>
+  <!-- pin header holes -->
+  <g class="hole">
+    <circle cx="218" cy="140" r="5"/><circle cx="218" cy="170" r="5"/><circle cx="218" cy="200" r="5"/><circle cx="218" cy="230" r="5"/><circle cx="218" cy="260" r="5"/><circle cx="218" cy="290" r="5"/><circle cx="218" cy="320" r="5"/><circle cx="218" cy="350" r="5"/><circle cx="218" cy="380" r="5"/><circle cx="218" cy="410" r="5"/><circle cx="218" cy="440" r="5"/><circle cx="218" cy="470" r="5"/><circle cx="218" cy="500" r="5"/><circle cx="218" cy="530" r="5"/><circle cx="218" cy="560" r="5"/><circle cx="218" cy="590" r="5"/><circle cx="218" cy="620" r="5"/>
+    <circle cx="442" cy="140" r="5"/><circle cx="442" cy="170" r="5"/><circle cx="442" cy="200" r="5"/><circle cx="442" cy="230" r="5"/><circle cx="442" cy="260" r="5"/><circle cx="442" cy="290" r="5"/><circle cx="442" cy="320" r="5"/><circle cx="442" cy="350" r="5"/><circle cx="442" cy="380" r="5"/><circle cx="442" cy="410" r="5"/><circle cx="442" cy="440" r="5"/><circle cx="442" cy="470" r="5"/><circle cx="442" cy="500" r="5"/><circle cx="442" cy="530" r="5"/><circle cx="442" cy="560" r="5"/><circle cx="442" cy="590" r="5"/><circle cx="442" cy="620" r="5"/>
+  </g>
+
+  <!-- module with antenna -->
+  <rect class="ant" x="250" y="90" width="160" height="40"/>
+  <rect class="module" x="240" y="130" width="180" height="150" rx="4"/>
+  <text class="small" x="330" y="160" text-anchor="middle">ESPRESSIF</text>
+  <text class="small" x="330" y="176" text-anchor="middle">ESP32-S3-WROOM-1</text>
+
+  <!-- camera on ribbon -->
+  <rect class="ribbon" x="318" y="262" width="24" height="84"/>
+  <rect class="lens" x="300" y="196" width="60" height="62" rx="6"/>
+  <circle class="glass" cx="330" cy="226" r="11"/>
+
+  <!-- FPC connector -->
+  <rect class="conn" x="262" y="340" width="136" height="40" rx="3"/>
+  <text class="small" x="330" y="364" text-anchor="middle">24-pin FPC</text>
+
+  <!-- name strip -->
+  <text class="onboard" x="330" y="412" text-anchor="middle">ESP32-S3 WROOM</text>
+
+  <!-- buttons and LEDs -->
+  <rect class="btn" x="236" y="448" width="30" height="30" rx="4"/>
+  <rect class="btn" x="394" y="448" width="30" height="30" rx="4"/>
+  <circle cx="300" cy="462" r="7" fill="#22c55e"/>
+  <circle cx="330" cy="462" r="7" fill="#9ca3af"/>
+  <circle cx="360" cy="462" r="7" fill="#3b82f6"/>
+
+  <!-- USB-C ports -->
+  <rect class="usb" x="240" y="560" width="74" height="76" rx="8"/>
+  <rect class="usbin" x="256" y="590" width="42" height="12" rx="3"/>
+  <rect class="usb" x="346" y="560" width="74" height="76" rx="8"/>
+  <rect class="usbin" x="362" y="590" width="42" height="12" rx="3"/>
+
+  <!-- labels, left side -->
+  <g>
+    <path class="lead" d="M236 463 H150"/><circle class="dot" cx="236" cy="463" r="3"/>
+    <text class="txt" x="30" y="460">RST / EN button</text>
+    <text class="small" x="30" y="476">resets the board</text>
+
+    <path class="lead" d="M240 598 H150"/><circle class="dot" cx="240" cy="598" r="3"/>
+    <text class="txt" x="30" y="590">USB-C: native USB</text>
+    <text class="small" x="30" y="606">not used in this project</text>
+
+    <path class="lead" d="M300 262 L150 262"/><circle class="dot" cx="300" cy="262" r="3"/>
+    <text class="txt" x="30" y="252">Camera lens</text>
+    <text class="small" x="30" y="268">sensor printed on the ribbon</text>
+
+    <path class="lead" d="M240 200 L150 190"/><circle class="dot" cx="240" cy="200" r="3"/>
+    <text class="txt" x="30" y="178">ESP32-S3 module</text>
+    <text class="small" x="30" y="194">2 cores, Wi-Fi, BLE</text>
+    <text class="small" x="30" y="208">8 MB PSRAM</text>
+  </g>
+
+  <!-- labels, right side -->
+  <g>
+    <path class="lead" d="M424 463 H520"/><circle class="dot" cx="424" cy="463" r="3"/>
+    <text class="txt" x="530" y="460">BOOT button</text>
+    <text class="small" x="530" y="476">GPIO0, enters flash mode</text>
+
+    <path class="lead" d="M420 598 H520"/><circle class="dot" cx="420" cy="598" r="3"/>
+    <text class="txt" x="530" y="590">USB-C: UART (CH343)</text>
+    <text class="small" x="530" y="606">upload + serial log;</text>
+    <text class="small" x="530" y="620">use this one</text>
+
+    <path class="lead" d="M360 450 L520 420"/><circle class="dot" cx="360" cy="458" r="3"/>
+    <text class="txt" x="530" y="414">Status LEDs</text>
+    <text class="small" x="530" y="430">GPIO2 LED = "person seen"</text>
+    <text class="small" x="530" y="444">GPIO48 = RGB LED (unused)</text>
+
+    <path class="lead" d="M398 360 L520 330"/><circle class="dot" cx="398" cy="360" r="3"/>
+    <text class="txt" x="530" y="324">Camera connector</text>
+    <text class="small" x="530" y="340">ribbon locks in with a latch</text>
+
+    <path class="lead" d="M442 230 L520 230"/><circle class="dot" cx="442" cy="230" r="3"/>
+    <text class="txt" x="530" y="226">Pin headers</text>
+    <text class="small" x="530" y="242">both sides, GPIO + 3V3/GND</text>
+
+    <path class="lead" d="M330 108 L520 150"/><circle class="dot" cx="330" cy="108" r="3"/>
+    <text class="txt" x="530" y="146">PCB antenna</text>
+    <text class="small" x="530" y="162">keep free of metal</text>
+  </g>
+</svg>
