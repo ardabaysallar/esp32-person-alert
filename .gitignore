@@ -1,0 +1,11 @@
+# Secrets: never commit
+secrets.h
+**/secrets.h
+*.env
+.env*
+
+# Build output and OS files
+build/
+*.bin
+*.elf
+.DS_Store

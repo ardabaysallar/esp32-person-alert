@@ -1,0 +1,11 @@
+Third-party material included in this repository
+
+PersonAlert/person_detect_model_data.cc, person_detect_model_data.h,
+PersonAlert/model_settings.cc, PersonAlert/model_settings.h
+  Source: https://github.com/espressif/esp-tflite-micro (examples/person_detection)
+  Copyright The TensorFlow Authors / Espressif Systems. Licensed under the
+  Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
+  The original licence headers are kept in the files.
+
+PersonAlert/camera_pins.h
+  Source: Arduino-ESP32 CameraWebServer example (Espressif Systems).
