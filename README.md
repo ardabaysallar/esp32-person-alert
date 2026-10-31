@@ -9,6 +9,10 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
                                       email via Gmail SMTP (5 min cooldown)
 ```
 
+![The Freenove ESP32-S3 WROOM board with its camera, connected by USB-C](docs/images/board.jpg)
+
+*The red Freenove ESP32-S3 WROOM board (16 MB flash variant) with the camera on its ribbon cable. The ribbon is labelled OV3660. The USB-C cable sits in the right-hand port, the one that appears as the serial port on a Mac.*
+
 ## Documentation
 
 | Document | What's in it |
@@ -19,7 +23,7 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
 
 ## At a glance
 
-- Board: Freenove ESP32-S3 WROOM with camera (8 MB PSRAM, 8 or 16 MB flash depending on the variant; the camera is an OV2640 per Freenove's tutorial)
+- Board: Freenove ESP32-S3 WROOM with camera (8 MB PSRAM, 8 or 16 MB flash depending on the variant; the camera ribbon is labelled OV3660)
 - Model: Espressif / TensorFlow "person detection" (int8, 96x96 grayscale, about 300 KB)
 - Speed: about 3 frames per second (plain TFLite Micro, no esp-nn acceleration)
 - The onboard LED (GPIO2) lights up while a person is in view
