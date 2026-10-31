@@ -19,7 +19,7 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
 1. **Driver.** Install the WCH CH34x driver from <https://www.wch-ic.com/downloads/CH34XSER_MAC_ZIP.html>. On macOS 15 also enable it in *System Settings > General > Login Items & Extensions*. Plug in the USB-C port next to the CH343 chip, with a data cable.
 2. **Get the code.**
    ```bash
-   git clone https://github.com/<your-user>/esp32-person-alert.git
+   git clone https://github.com/ardabaysallar/esp32-person-alert.git
    cd esp32-person-alert
    ```
 3. **Run setup.** It installs `arduino-cli`, the ESP32 core 2.0.5 and the pinned libraries, then creates `PersonAlert/secrets.h` for you:
