@@ -1,0 +1,8 @@
+// Optional personal settings. Copy to "config_local.h" (git-ignored) to use them.
+// Without config_local.h the safe defaults apply: text-only email, 5 minutes between emails.
+
+// Attach ONE photo to the alert email. Read "Photo mode: risks" in the README first.
+// #define ENABLE_PHOTO 1
+
+// Minutes between emails, times 10. 50 = 5.0 minutes (default). 10 = 1 minute, handy while testing.
+// #define COOLDOWN_MINUTES_X10 10

@@ -1,6 +1,6 @@
 # The machine-learning model
 
-The board runs a small convolutional neural network (CNN) that answers one question per frame: **is there a person in this image?** It runs on the ESP32 itself with TensorFlow Lite for Microcontrollers (TFLite Micro). No image leaves the device.
+The board runs a small convolutional neural network (CNN) that answers one question per frame: **is there a person in this image?** It runs on the ESP32 itself with TensorFlow Lite for Microcontrollers (TFLite Micro). Images are analysed on the device and not stored. By default no image leaves it; only in the optional photo mode is one snapshot per alert emailed to your own address.
 
 ```
  camera frame            preprocessing                model                 decision

@@ -1,6 +1,6 @@
 # esp32-person-alert
 
-A small security camera on an ESP32-S3. It runs a person-detection neural network **on the board itself** and emails you when it sees someone. No cloud service, no video leaves the device.
+A small security camera on an ESP32-S3. It runs a person-detection neural network **on the board itself** and emails you when it sees someone. No cloud service, no video and no stream leave the device. The default firmware emails text only. An optional photo mode, **off by default**, attaches one snapshot to the alert email; read [Photo mode: risks](#photo-mode-risks) before you turn it on.
 
 ```
  camera (96x96 gray) ──► TFLite Micro model ──► person score
@@ -19,6 +19,7 @@ A small security camera on an ESP32-S3. It runs a person-detection neural networ
 |---|---|
 | [docs/HARDWARE.md](docs/HARDWARE.md) | Parts, board layout, pins, camera and USB setup, limits |
 | [docs/ML_MODEL.md](docs/ML_MODEL.md) | The person-detection model, preprocessing, tuning, measured scores, limits |
+| [Photo mode: risks](#photo-mode-risks) | The optional email photo, off by default, and what it means |
 | [docs/HOW_IT_WORKS.md](docs/HOW_IT_WORKS.md) | Firmware walkthrough, email sending, build settings, resource use, security design |
 
 ## At a glance
@@ -107,6 +108,7 @@ Good practice:
 | `PersonAlert/model_settings.*` | Input size (96x96x1) and class labels |
 | `PersonAlert/camera_pins.h` | Camera pin maps; this project uses `CAMERA_MODEL_ESP32S3_EYE`, which matches the Freenove board |
 | `PersonAlert/secrets.h.example` | Template for your private settings |
+| `PersonAlert/config_local.h.example` | Template for optional personal settings (photo mode, test cooldown); the real `config_local.h` is git-ignored |
 | `setup.sh` | One-command install, compile and upload |
 
 Tunables at the top of `PersonAlert.ino`: `kThreshold` (0.70), `kHitsNeeded` (3 frames in a row) and `kCooldownMs` (5 minutes between emails). The time zone is set for Berlin (`CET-1CEST`); change it in `setup()`.
@@ -117,12 +119,35 @@ Tunables at the top of `PersonAlert.ino`: `kThreshold` (0.70), `kHitsNeeded` (3 
 - **Uploads fail.** Check the port and cable first. Then press RST or re-plug the board and try again (Freenove's own advice). If it still fails, hold BOOT while you press RST, release BOOT, then upload.
 - **"PSRAM" or allocation errors.** PSRAM must be set to OPI PSRAM.
 - **Log shows nothing.** Make sure the baud rate is 115200 and that you use the UART USB-C port. Press RST.
-- **No email.** Check the serial monitor (115200 baud) for `Email failed: ...`. Usual causes are a wrong app password or 2-Step Verification being off. Look in spam too.
+- **No email.** Check the serial monitor (115200 baud) for `Email failed: ...`. Usual causes are a wrong app password or 2-Step Verification being off. `SMTP connect failed: code 535, authentication failed` means the credentials in `PersonAlert/secrets.h` are wrong or still the placeholders from `secrets.h.example` (`setup.sh` creates that placeholder copy). Check that you filled in the file the build actually uses. Look in spam too.
 - **False alarms.** Hands, coats and posters can score high. Raise `kThreshold` or `kHitsNeeded`.
 
 ## Privacy and legal
 
-This device detects people. Use it only in your own space, and in Germany or the EU keep it away from neighbours, shared hallways, the street and visitors who don't know about it (GDPR/BDSG and criminal law on picture-taking apply). Nothing is recorded or stored: frames are analysed in memory and discarded. This is not legal advice.
+This device detects people. Use it only in your own space, and in Germany or the EU keep it away from neighbours, shared hallways, the street and visitors who don't know about it (GDPR/DSGVO, BDSG and criminal law on picture-taking apply). In the default firmware nothing is recorded or stored: frames are analysed in memory and discarded, and the alert email is text only. This is not legal advice.
+
+## Photo mode: risks
+
+**Default: OFF.** With the default settings the email contains text only and no image ever leaves the board. Photo mode is an option for people who understand and accept the points below.
+
+What it does: when an alert fires, the camera briefly switches to a 640x480 JPEG, keeps **one** frame in RAM, attaches it to the alert email and releases it. Nothing is written to flash or SD, there is no video, no stream and no web server.
+
+Risks, stated plainly:
+
+- **The photo leaves your device and cannot be taken back.** It is stored in Gmail in the sender account (Sent folder) and in the recipient's inbox, and in any backup or sync of those mailboxes. Deleting your copy does not delete other copies.
+- **People can be identified.** There is no face recognition, but a 640x480 photo can show a face, clothing, the room and the time. That is personal data.
+- **Law.** In Germany and the EU (GDPR/DSGVO, BDSG, criminal law on picture-taking) and elsewhere, taking photos of people can require a legal basis, notice or consent. This applies to visitors, neighbours, delivery people, employees, tenants and anything outside your own private space (street, hallway, a neighbour's window). Use it only in your own home, with the consent of the people living there, and only email photos to yourself. This is not legal advice; check local rules.
+- **False alarms.** The model is small (96x96 grayscale). Hands, coats, posters and shadows can trigger it, so you may receive photos of things you did not expect to be photographed.
+- **Account risk.** Sending uses a Gmail SMTP account and an app password stored in the board's flash. Anyone who gets the password or the board can read it, and anyone who reads the mailbox sees the photos. Use a throwaway sender account, turn on 2-Step Verification for the recipient mailbox and revoke the app password if the board is lost.
+- **Do not publish real detection photos** (blog, social media, bug reports). They show people and the inside of a home. Use a staged photo of yourself, with your consent.
+
+### How to turn it on
+
+1. Copy `PersonAlert/config_local.h.example` to `PersonAlert/config_local.h` (it is git-ignored).
+2. In that file remove the `//` in front of `#define ENABLE_PHOTO 1`.
+3. Compile and upload again (`./setup.sh`). The serial log shows `Photo ON`.
+
+To turn it off again, delete `config_local.h` (or comment the line) and re-upload.
 
 ## Credits and licence
 

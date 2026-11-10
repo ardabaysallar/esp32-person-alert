@@ -48,6 +48,7 @@ loop()  (about 3 times per second)
 | File | Role |
 |---|---|
 | `PersonAlert/PersonAlert.ino` | Everything above |
+| `PersonAlert/config_local.h` (optional, yours, not in git) | Personal overrides: `ENABLE_PHOTO`, test cooldown. Template: `config_local.h.example` |
 | `PersonAlert/secrets.h` (yours, not in git) | Sender, app password, recipient. Created from `secrets.h.example` by `setup.sh` |
 | `PersonAlert/camera_pins.h` | Pin maps for many camera boards; `CAMERA_MODEL_ESP32S3_EYE` is selected |
 | `PersonAlert/model_settings.*` | 96x96x1 input, class names |
@@ -70,7 +71,7 @@ loop()  (about 3 times per second)
 
 | Resource | Used |
 |---|---|
-| Program storage | 1,503,729 bytes (47% of 3 MB) |
+| Program storage | 1,504,885 bytes (47% of 3 MB, v2 default build) |
 | Global variables | 46,272 bytes (14% of 320 KB) |
 | Tensor arena | 82,692 bytes used of 136 KB reserved (in PSRAM) |
 
@@ -79,7 +80,7 @@ loop()  (about 3 times per second)
 - Secrets live only in `secrets.h` (git-ignored) and in the board's flash after upload.
 - Wi-Fi credentials are entered on the setup hotspot, not in code.
 - The sender is a throwaway Gmail account, so a leaked password has limited reach.
-- Nothing is stored or streamed: frames are analysed in RAM and overwritten.
+- Nothing is stored or streamed: frames are analysed in RAM and overwritten. The default email is text only. In the optional photo mode (`ENABLE_PHOTO`, off by default, see the README risks section) the board briefly switches the camera to JPEG, keeps one frame in PSRAM, attaches it to the email and releases it, then returns to 96x96 mode. Nothing is written to flash or SD.
 - The setup hotspot is open until Wi-Fi is configured, so do first-time setup at home.
 
 ## Ideas to extend it

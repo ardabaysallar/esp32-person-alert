@@ -12,7 +12,7 @@ This is a hobby project. It has no inbound network services, but it has known li
 | **Alert emails reveal presence.** Each email says when a person was seen. | Whoever can read the receiving inbox | They learn when someone is in view | Protect that mailbox with 2-Step Verification |
 | **No firmware updates over the air, no authentication on the device.** | Anyone with a USB cable and physical access | Can re-flash the board | Physical security |
 
-What this device does **not** do: it has no web server, no open ports, does not stream or store images, and does not send video anywhere.
+What this device does **not** do: it has no web server, no open ports, does not stream, does not store images on the device and does not send video. In the default firmware the alert email is text only. In the optional photo mode (off by default; see "Photo mode: risks" in the README) one snapshot per alert is emailed to the configured recipient, kept in RAM only until the send finishes. Anyone who can read that mailbox can see the photo, so protect it with 2-Step Verification.
 
 ## Do not commit secrets
 
