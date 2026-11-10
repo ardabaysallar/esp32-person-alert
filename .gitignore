@@ -1,11 +1,20 @@
-# Secrets: never commit
+# Secrets and personal settings: never commit
 secrets.h
 **/secrets.h
+config_local.h
+**/config_local.h
 *.env
 .env*
 
-# Build output and OS files
-build/
+# Logs, captures, photos and build output
+*.log
+*serial*capture*
 *.bin
 *.elf
+*.map
+build/
+*.jpg
+*.jpeg
+*.heic
+*.HEIC
 .DS_Store
